@@ -1,39 +1,22 @@
-#### 常用命令
-./nginx -s stop/quit/reload
-stop暴力关闭，强制关闭
-./nginx -s quit 有请求则关闭，否则维持连接
-./nginx -t 查看conf文件是否正确
-./nginx -h 帮助help
-
-常见bug
-
-```apl
-[root@10 conf]# ../sbin/nginx -s reload
-nginx: [error] invalid PID number "" in "/usr/local/nginx/logs/nginx.pid"
-[root@10 conf]# ../sbin/nginx -c /usr/local/nginx/conf/nginx.conf
-```
-
-
-
 #### 正向代理(代理客户端发起请求)
 
 客户端是可以感知到代理的存在的. 因为在客户端需要一些配置.
 
-![image-20210929104621233](static\正向代理.png)
+![image-20210929104621233](..\static\正向代理.png)
 
 #### 反向代理(代理服务器 Reverse Proxy)
 
 客户端感知不到代理的存在, nginx代理的是服务器
 
-![image-20210929141130837](static\反向代理.png)
+![image-20210929141130837](..\static\反向代理.png)
 
 #### Nginx反向代理
 
 由于Nginx并发能力很强,因此一般用作前端的服务器直接向客户端提供静态文件服务. 同时也作为反向代理服务器来提供服务
 
-![image-20211025213241634](static\nginx的使用.png)
+![image-20211025213241634](..\static\nginx的使用.png)
 
-注意: 当客户端发来HTTP请求时，Nginx并不会立刻转发到上游服务器，而是先把用户的请求包括HTTP包体）完整地接收到Nginx所在服务器的硬盘或者内存中，然后再向上游服务器发起连接，把缓存的客户端请求转发到上游服务器。
+注意: 当客户端发来HTTP请求时，Nginx并不会立刻转发到上游服务器，而是先把用户的请求包括HTTP包体完整地接收到Nginx所在服务器的硬盘或者内存中，然后再向上游服务器发起连接，把缓存的客户端请求转发到上游服务器。
 
 这样可以减缓Tomcat等服务器的压力.
 

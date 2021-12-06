@@ -59,6 +59,10 @@ listen 127.0.0.1 default_server accept_filter=dataready backlog=1024;
 
 server_name后可以跟多个主机名称，如server_name  www.testweb.com www.download.testweb.com; 在开始处理一个HTTP请求时，Nginx会取出header头中的Host，与每个server中的server_name进行匹配，以此决定到底由哪一个server块来处理这个请求。有可能一个Host与多个server块中的server_name都匹配，这时就会根据匹配优先级来选择实际处理的server块。
 
+为什么需要server_name?
+
+首先IP地址的数量是有限的,因此存在多个主机域名对应同一个IP地址的情况, 这个时候每个server块只处理与之相应的域名.
+
 ###### server_names_hash_bucket_size  (32 or 64 or)
 
 为了提高快速寻找到相应server name的能力，Nginx使用散列表来存储server name。
@@ -90,9 +94,7 @@ location /download {
 }
 ```
 
-如果请求是/download/inde
-
-x/test.html, 那么web服务器就会返回optwebhtml/download/index/test.html
+如果请求是/download/index/test.html, 那么web服务器就会返回optwebhtml/download/index/test.html
 
 2.alias 相当于conf=usr/local/nginx/conf/   **[只能配置在location块]**
 
